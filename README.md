@@ -5,7 +5,7 @@ SH Script to zip and rclone with Network limit
 git clone https://github.com/Lostepic/rclone-zip-backup
 ```
 
-## Step 1: 
+# Step 1: 
 #Install Necessary Tools
 
 You'll need to install `pigz` & `bc`. For Debian/Ubuntu systems, you can use:
@@ -15,7 +15,7 @@ sudo apt-get update
 sudo apt-get install pigz bc
 ```
 
-## Step 2:
+# Step 2:
 #Edit the script
 
 Instructions for each option are inside the script, make sure to have rclone setup already with your remote, in my example using gdrive
@@ -24,8 +24,8 @@ Instructions for each option are inside the script, make sure to have rclone set
 nano zip_and_upload.sh
 ```
 
-## Step 3:
-# Make the Script Executable
+# Step 3:
+## Make the Script Executable
 
 ```
 chmod +x zip_and_upload.sh
@@ -33,20 +33,20 @@ chmod +x zip_and_upload.sh
 
 Optional: comment line 22 to not delete the local zip copy after upload
 
-## How to Use:
+# How to Use:
 
-# Backup Without Cleanup: Simply pass the directory you want to backup.
+## Backup Without Cleanup: Simply pass the directory you want to backup.
 
 ```
 ./zip_and_upload.sh "/path/to/folder"
 ```
 
-# Backup With Cleanup: Pass the directory you want to backup followed by cleanup.
+## Backup With Cleanup: Pass the directory you want to backup followed by cleanup.
 ```
 ./zip_and_upload.sh "/path/to/folder" cleanup
 ```
 
-# Schedule with Cron
+## Schedule with Cron
 
 ```
 crontab -e
