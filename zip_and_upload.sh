@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Define the folder to zip and the output file name
+# Define the folder to zip and the output file name with timestamp
 FOLDER_TO_ZIP="/home"
-ZIP_FILE="/path/to/your/home_backup_$(date +%Y-%m-%d_%H-%M-%S).7z"
+ZIP_FILE="/path/to/your/home_backup_$(date +%Y-%m-%d_%H-%M-%S).tar.gz"
 
-# Use nice to lower the priority and cpulimit to limit the CPU usage of 7z
-# Adjust the -l option to limit CPU usage (percentage), here it's set for roughly 2 cores depending on your total CPU availability
-nice -n 19 cpulimit -l 200 -e 7z -- 7z a -mx=3 $ZIP_FILE $FOLDER_TO_ZIP
+# Compress the folder using tar and pigz for parallel compression
+# If pigz is not installed, you can replace 'pigz' with 'gzip' for traditional compression
+tar cf - $FOLDER_TO_ZIP | nice -n 19 pigz > $ZIP_FILE
 
-# Use trickle to limit network bandwidth to 100Mbps (convert to KB/s for trickle)
-# Adjust the -u (upload) rate as needed. Here, 100Mbps is approx 12800KB/s
+# Upload the zip file to Google Drive using rclone with bandwidth limit
 # Replace "gdrive" with your configured Google Drive remote name in rclone
-trickle -u 12800 rclone copy $ZIP_FILE gdrive:path/to/your/drive/folder
+# The --bwlimit=12.5M option limits the bandwidth to approximately 100Mbps
+rclone copy $ZIP_FILE gdrive:path/to/your/drive/folder --bwlimit=12.5M

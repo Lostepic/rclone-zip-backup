@@ -1,5 +1,5 @@
 # rclone-zip-backup
-SH Script to zip and rclone with CPU and Network limits
+SH Script to zip and rclone with Network limit
 
 ```
 git clone https://github.com/Lostepic/rclone-zip-backup
@@ -7,11 +7,11 @@ git clone https://github.com/Lostepic/rclone-zip-backup
 
 Step 1: Install Necessary Tools
 
-You'll need to install `7zip`, `cpulimit` and `trickle`. For Debian/Ubuntu systems, you can use:
+You'll need to install `pigz`. For Debian/Ubuntu systems, you can use:
 
 ```
 sudo apt-get update
-sudo apt-get install p7zip-full trickle cpulimit
+sudo apt-get install pigz
 ```
 
 Step 2: Edit the script
@@ -41,10 +41,7 @@ Add a line to schedule your script, for example:
 ```
 
 Notes:
-
-- The nice command adjusts the priority of the process, making it less likely to interfere with more critical processes like those running your website.
-- cpulimit does not limit the process to specific cores but limits its CPU usage to a percentage of the total available CPU power. If you have a specific requirement to use exactly two cores, you might need a more complex setup involving taskset and a detailed analysis of your server's load and capabilities.
-- The -mx=3 option for 7z sets the compression level to a balance between speed and compression efficiency. You can adjust this based on your needs.
+- The nice command can be used to lower the priority of a process, making it yield CPU time to other processes more readily. This doesn't limit CPU usage to a specific percentage but can reduce the overall impact on system performance, ```-n 19``` sets the niceness level to 19, which is the lowest priority.
 - Remember to test this script manually to ensure it works as expected, especially to confirm that it doesn't unduly impact your production environment.
 
 This setup should do regular backups of the directory set with minimal impact on your server's performance and network bandwidth.
