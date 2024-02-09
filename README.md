@@ -40,6 +40,8 @@ Add a line to schedule your script, for example:
 0 1,13 * * * /path/to/your/zip_and_upload.sh
 ```
 
+Optional: uncomment the last line to delete the zip after upload
+
 Notes:
 - The nice command can be used to lower the priority of a process, making it yield CPU time to other processes more readily. This doesn't limit CPU usage to a specific percentage but can reduce the overall impact on system performance, ```-n 19``` sets the niceness level to 19, which is the lowest priority.
 - Remember to test this script manually to ensure it works as expected, especially to confirm that it doesn't unduly impact your production environment.
