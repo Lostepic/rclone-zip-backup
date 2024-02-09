@@ -7,11 +7,11 @@ git clone https://github.com/Lostepic/rclone-zip-backup
 
 Step 1: Install Necessary Tools
 
-You'll need to install `pigz`. For Debian/Ubuntu systems, you can use:
+You'll need to install `pigz` & `bc`. For Debian/Ubuntu systems, you can use:
 
 ```
 sudo apt-get update
-sudo apt-get install pigz
+sudo apt-get install pigz bc
 ```
 
 Step 2: Edit the script
@@ -28,7 +28,22 @@ Step 3: Make the Script Executable
 chmod +x zip_and_upload.sh
 ```
 
-Step 4: Schedule with Cron
+Optional: comment line 22 to not delete the local zip copy after upload
+
+How to Use:
+
+    Backup Without Cleanup: Simply pass the directory you want to backup.
+
+```
+./zip_and_upload.sh "/path/to/folder"
+```
+
+Backup With Cleanup: Pass the directory you want to backup followed by cleanup.
+```
+./zip_and_upload.sh "/path/to/folder" cleanup
+```
+
+Schedule with Cron
 
 ```
 crontab -e
@@ -37,10 +52,8 @@ crontab -e
 Add a line to schedule your script, for example:
 
 ```
-0 1,13 * * * /path/to/your/zip_and_upload.sh
+0 1,13 * * * cd /root/rclone-zip-backup && bash zip_and_upload.sh "/home" cleanup >> /var/log/zip-and-backup.log 2>&1
 ```
-
-Optional: uncomment the last line to delete the zip after upload
 
 Notes:
 - The nice command can be used to lower the priority of a process, making it yield CPU time to other processes more readily. This doesn't limit CPU usage to a specific percentage but can reduce the overall impact on system performance, ```-n 19``` sets the niceness level to 19, which is the lowest priority.
