@@ -1,6 +1,10 @@
 # rclone-zip-backup
 SH Script to zip and rclone with CPU and Network limits
 
+```
+git clone https://github.com/Lostepic/rclone-zip-backup
+```
+
 Step 1: Install Necessary Tools
 
 You'll need to install `7zip`, `cpulimit` and `trickle`. For Debian/Ubuntu systems, you can use:

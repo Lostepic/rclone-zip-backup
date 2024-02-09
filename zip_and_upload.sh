@@ -2,7 +2,7 @@
 
 # Define the folder to zip and the output file name
 FOLDER_TO_ZIP="/home"
-ZIP_FILE="/path/to/your/home_backup.7z"
+ZIP_FILE="/path/to/your/home_backup_$(date +%Y-%m-%d_%H-%M-%S).7z"
 
 # Use nice to lower the priority and cpulimit to limit the CPU usage of 7z
 # Adjust the -l option to limit CPU usage (percentage), here it's set for roughly 2 cores depending on your total CPU availability
